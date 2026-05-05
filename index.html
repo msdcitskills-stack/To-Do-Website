@@ -2,20 +2,94 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>To-Do App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Advanced To-Do App</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div class="container">
-  <h1>My To-Do List</h1>
+  <header class="header">
+    <h1><i class="fas fa-tasks"></i> My Tasks</h1>
+    <div class="stats">
+      <div class="stat-item">
+        <span class="stat-label">Total:</span>
+        <span class="stat-value" id="totalTasks">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Completed:</span>
+        <span class="stat-value" id="completedTasks">0</span>
+      </div>
+    </div>
+  </header>
 
   <div class="input-section">
-    <input type="text" id="taskInput" placeholder="Enter a task...">
-    <button onclick="addTask()">Add</button>
+    <div class="task-input-group">
+      <input type="text" id="taskInput" placeholder="What's your next task?" autofocus>
+      <select id="prioritySelect" class="priority-select">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+      <input type="date" id="dueDate" class="due-date-input">
+      <input type="text" id="categoryInput" placeholder="Category...">
+      <button onclick="addTask()" class="add-btn"><i class="fas fa-plus"></i> Add</button>
+    </div>
   </div>
 
-  <ul id="taskList"></ul>
+  <div class="filter-section">
+    <button class="filter-btn active" data-filter="all"><i class="fas fa-list"></i> All</button>
+    <button class="filter-btn" data-filter="active"><i class="fas fa-circle"></i> Active</button>
+    <button class="filter-btn" data-filter="completed"><i class="fas fa-check-circle"></i> Completed</button>
+    <button class="filter-btn" data-filter="high"><i class="fas fa-exclamation-circle" style="color: #dc3545;"></i> High</button>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search tasks...">
+      <i class="fas fa-search"></i>
+    </div>
+  </div>
+
+  <div class="sort-section">
+    <label>Sort by:</label>
+    <select id="sortSelect" onchange="sortTasks()">
+      <option value="date-added">Date Added</option>
+      <option value="due-date">Due Date</option>
+      <option value="priority">Priority</option>
+      <option value="name">Name</option>
+    </select>
+  </div>
+
+  <div class="empty-state" id="emptyState">
+    <i class="fas fa-inbox"></i>
+    <p>No tasks yet. Create one to get started!</p>
+  </div>
+
+  <ul class="task-list" id="taskList"></ul>
+
+  <div class="action-buttons">
+    <button class="clear-btn" onclick="clearCompleted()" id="clearBtn" style="display: none;">
+      <i class="fas fa-trash"></i> Clear Completed
+    </button>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal" id="editModal">
+  <div class="modal-content">
+    <span class="close" onclick="closeEditModal()">&times;</span>
+    <h2>Edit Task</h2>
+    <input type="text" id="editTaskInput" placeholder="Task description">
+    <select id="editPrioritySelect">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+    </select>
+    <input type="date" id="editDueDate">
+    <input type="text" id="editCategoryInput" placeholder="Category">
+    <div class="modal-buttons">
+      <button class="save-btn" onclick="saveEditedTask()"><i class="fas fa-save"></i> Save</button>
+      <button class="cancel-btn" onclick="closeEditModal()"><i class="fas fa-times"></i> Cancel</button>
+    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
