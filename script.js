@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEventListeners();
   updateStats();
 });
+  // Filter buttons
 
 function setupEventListeners() {
   // Filter buttons
