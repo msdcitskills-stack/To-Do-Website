@@ -62,6 +62,7 @@ function renderTasks() {
     const index = tasks.indexOf(task);
     const li = document.createElement("li");
     li.className = `task-item ${task.completed ? "completed" : ""} priority-${task.priority || "medium"}`;
+  // Enter key to add task
 
     // Due date indicator
     let dueDateHtml = "";
